@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+.warningBorder {
+    border: 1px solid #68A063;
+    background-color: #fff0c4;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #333;
+}
+
+.warningIcon{
+    width: 24px;
+    height: 24px;
+    color: #F1C232
+}

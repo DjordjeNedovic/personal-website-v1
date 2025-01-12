@@ -1,0 +1,39 @@
+---
+type: Post
+title: Issue with subscription rule migration from TF the 0.12v to the 0.13v
+description: >-
+    How dollar sign in name created that
+date: '2024-11-06'
+---
+<div className="warningBorder">
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="warningIcon"
+    >
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-.75 5.75a.75.75 0 011.5 0v6.5a.75.75 0 01-1.5 0v-6.5zm1 9.25a1 1 0 10-2 0 1 1 0 002 0z" />
+    </svg>
+    <span className="font-bold">Under Construction</span>
+</div>
+
+
+Before:
+```
+resource "azurerm_servicebus_subscription_rule" "example" {
+  name            = "$Default"
+  subscription_id = azurerm_servicebus_subscription.example.id
+  filter_type     = "SqlFilter"
+  sql_filter      = "colour = 'red'"
+}
+```
+
+After:
+```
+resource "azurerm_servicebus_subscription_rule" "example" {
+  name            = "tfex_servicebus_rule"
+  subscription_id = azurerm_servicebus_subscription.example.id
+  filter_type     = "SqlFilter"
+  sql_filter      = "colour = 'red'"
+}
+```

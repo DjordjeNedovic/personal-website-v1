@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://djordjenedovic.netlify.app/sitemap.xml

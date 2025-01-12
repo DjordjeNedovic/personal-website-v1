@@ -1,0 +1,57 @@
+---
+type: Post
+title: How to create and publish preview nuget package from the pipeline
+description: >-
+  Short tutorial how to do it
+date: '2024-11-06'
+---
+
+<div className="warningBorder">
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="warningIcon"
+    >
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-.75 5.75a.75.75 0 011.5 0v6.5a.75.75 0 01-1.5 0v-6.5zm1 9.25a1 1 0 10-2 0 1 1 0 002 0z" />
+    </svg>
+    <span className="font-bold">Under Construction</span>
+</div>
+
+```yaml
+variables:
+  pkgVer: ''
+
+stages:
+  - stage: build
+    jobs:
+      - pwsh: |
+        $pv = '$(Build.BuildNumber)'
+        if("$(Build.SourceBranch)" -ne "refs/heads/master")
+        {
+          $pv = @($pv, "beta", (Get-Date -Format "yyyyMMdd")) -Join "-"
+        }
+
+        Write-Host "##vso[task.setvariable variable=pkgVer;]$pv"
+        Write-Host "Package Version = ${pv}"
+      displayName: Set Package version
+      
+      - task: DotNetCoreCLI@2
+        displayName: Pack Projects
+        inputs:
+          command: custom
+          custom: pack
+          projects: <PATH_TO_PROJECT>/<PROJECT_NAME>.csproj
+          arguments: '--no-build -c Release /p:PackageVersion=$(pkgVer) -o $(Build.ArtifactStagingDirectory)/nupkgs'
+
+      - task: DotNetCoreCLI@2
+        displayName: Publish to nuget Feed
+        inputs:
+          command: push
+          packagesToPush: '$(Build.ArtifactStagingDirectory)/nupkgs/*.nupkg'
+          feedPublish: <PUBLISH_FEED_NAME>
+
+      - publish: $(Build.ArtifactStagingDirectory)/nupkgs/
+        displayName: Publish Nuget packages as pipeline artefact
+        artefact: nupks
+```
