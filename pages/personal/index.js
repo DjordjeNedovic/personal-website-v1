@@ -22,7 +22,7 @@ export default function Index({ globalData }) {
         </div>
 
       <div className="flex flex-col items-center w-full max-w-3xl mx-auto mb-8">
-        <Link href="/docs/Djordje_Nedovic_CV.pdf" onclick="Lit.event('click-on-check-cv')" className="px-5 py-3 text-sm font-medium text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Check the full CV here!</Link>
+        <Link href="/docs/Djordje_Nedovic_CV.pdf" onClick="Lit.event('click-on-cv')" className="px-5 py-3 text-sm font-medium text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Check the full CV here!</Link>
       </div>
 
         <ol>

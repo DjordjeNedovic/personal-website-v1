@@ -34,7 +34,7 @@ export default function Index({posts, globalData, projects}) {
                     <ul className="flex flex-col gap-x-2 space-y-5">
                         {posts.map((post, index) => (
                             <li key={index} className="border-b-2">
-                                <Link as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`} href={`/posts/[slug]`}>
+                                <Link as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`} href={`/posts/[slug]`} onClick="Lit.event('click-on-post')">
                                     <article>
                                         <h3 className="text-2xl text-left">{post.data.title}</h3>
                                         <p className="text-xl text-left mt-2 italic ">{post.data.description}</p>
@@ -47,7 +47,7 @@ export default function Index({posts, globalData, projects}) {
                             </li>
                         ))}
                     </ul>
-                    <Link className="text-lg sm:text-xl text-right underline underline-offset-1" href={`/posts`}>
+                    <Link className="text-lg sm:text-xl text-right underline underline-offset-1" href={`/posts`}  onClick="Lit.event('click-on-posts')">
                         See all posts
                     </Link>
                 </div>
@@ -58,7 +58,7 @@ export default function Index({posts, globalData, projects}) {
                         {projects.map((project, index) => (
                             <li key={index} className="border-r-2">
                                 <Link as={`/projects/${project.filePath.replace(/\.mdx?$/, '')}`}
-                                      href={`/projects/[slug]`}>
+                                      href={`/projects/[slug]`}  onClick="Lit.event('click-on-project')">
                                     <article>
                                         <h3 className="text-2xl text-left">{project.data.title}</h3>
                                         <p className="text-xl text-left mt-2 italic ">{project.data.description}</p>
@@ -71,7 +71,7 @@ export default function Index({posts, globalData, projects}) {
                             </li>
                         ))}
                     </ul>
-                    <Link className="text-lg sm:text-xl text-right underline underline-offset-1" href={`/projects`}>
+                    <Link className="text-lg sm:text-xl text-right underline underline-offset-1" href={`/projects`} onClick="Lit.event('click-on-projects')">
                         See all projects
                     </Link>
                 </div>
