@@ -43,7 +43,9 @@ export default function Layout({ children }) {
     handleSystemThemeChange();
   }, []);
 
-  Lit.init("67730ded07b3365ec84f9ea1");
+
+
+  //Lit.init("67730ded07b3365ec84f9ea1");
   return (
     <div className="relative pb-24 overflow-hidden">
       <div className="flex flex-col items-center w-full max-w-3xl mx-auto">
