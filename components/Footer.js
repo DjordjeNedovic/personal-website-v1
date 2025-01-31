@@ -1,9 +1,10 @@
 import Link from "next/link";
+import {Lit} from "litlyx-js";
 
 export default function Footer() {
     return (
         <footer className="w-full flex sm:flex-row pt-6 border-t-2 mt-2 items-center">
-            <Link className="md:basis-1/12 md:pr-8 max-sm:pr-2 max-sm:pl-1" href="https://www.linkedin.com/in/djordjenedovic/" aria-label="LinkedIn">
+            <Link className="md:basis-1/12 md:pr-8 max-sm:pr-2 max-sm:pl-1" href="https://www.linkedin.com/in/djordjenedovic/" aria-label="LinkedIn" onClick={() => Lit.event("click-footer-social-ln")}>
                 <span className="[&>svg]:h-5 [&>svg]:w-5">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +15,7 @@ export default function Footer() {
                 </svg>
                 </span>
             </Link>
-            <Link className="md:basis-1/12 md:pr-8 max-sm:pr-2" href="https://github.com/DjordjeNedovic" aria-label="GitHub">
+            <Link className="md:basis-1/12 md:pr-8 max-sm:pr-2" href="https://github.com/DjordjeNedovic" aria-label="GitHub" onClick={() => Lit.event("click-footer-social-github")}>
                 <span className="[&>svg]:h-5 [&>svg]:w-5">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +26,7 @@ export default function Footer() {
                 </svg>
                 </span>
             </Link>
-            <Link className="md:basis-1/12 md:pr-8 max-sm:pr-2" href="https://x.com/djordje_nedovic" aria-label="X">
+            <Link className="md:basis-1/12 md:pr-8 max-sm:pr-2" href="https://x.com/djordje_nedovic" aria-label="X" onClick={() => Lit.event("click-footer-social-x")}>
                 <span className="[&>svg]:h-5 [&>svg]:w-5">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +37,7 @@ export default function Footer() {
                 </svg>
                 </span>
             </Link>
-            <Link className="md:basis-1/12 md:pr-8 max-sm:pr-2" href="mailto:nedovic.djordje@gmail.com" aria-label="mailto">
+            <Link className="md:basis-1/12 md:pr-8 max-sm:pr-2" href="mailto:nedovic.djordje@gmail.com" aria-label="mailto" onClick={() => Lit.event("click-footer-mail")}>
                 <span className="[&>svg]:h-6 [&>svg]:w-6">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
                         <path
