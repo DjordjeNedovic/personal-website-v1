@@ -17,6 +17,50 @@ date: '2024-11-06'
     <span className="font-bold">Under Construction</span>
 </div>
 
+Task was simple "Update terraform to the latest version". Only issue was that particular solution version 0.12v. And if
+you know anything about terraform update, then you need to do it in following order:
+
+```
+0.12v -> 0.13v -> 0.14v -> latest version
+```
+
+Pritty simple, so in `provider.tf` I did following:
+
+```
+terraform {
+    required_version = ">= 0.12" # to "~> 0.13"
+}
+
+```
+
+And happyily push it on the branch, run release pipeline and see large error in `terraform apply` step:
+
+
+```
+Error: Provider produces incosistent result after apply
+
+When appliying chagens to azurerm_servicebus_subscription_rule.example,
+provider "registry.terraform.io/hashicorp/azurerm" produced an unexpected new
+value: Root resource was present, but not absent.
+
+This is a bug in the provider, which should be reported in the provider's own
+issue tracker.
+
+```
+
+Quick glance on the resource itself does not raise any alarm:
+```
+resource "azurerm_servicebus_subscription_rule" "example" {
+  name            = "$Default"
+  subscription_id = azurerm_servicebus_subscription.example.id
+  filter_type     = "SqlFilter"
+  sql_filter      = "colour = 'red'"
+}
+```
+
+Google does not help either. ChatGPT even less. So, I decided to play with it, and to see what caused this.
+First thing that I changed was the name. From the `$Default` to the `TestNameSubscription` and on my dismay `terraform
+apply` passed. Somehow, *undocumented* `$` sign can cause apply step to fail.
 
 Before:
 ```
