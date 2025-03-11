@@ -10,6 +10,7 @@ export default function SEO({ title, description, keywords }) {
           <meta property="og:description" content={description}/>
           <meta property="og:type" content="website"/>
           <meta name="google-site-verification" content="NexAAqcA4HTnd0HO2t4ZhWdqzXahMveX0dS6uaT74zo"/>
+          <meta name="robots" content="index, follow"/>
       </Head>
   );
 }
