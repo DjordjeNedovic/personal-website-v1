@@ -2,29 +2,24 @@
 type: Post
 title: Issue with subscription rule migration from TF the 0.12v to the 0.13v
 description: >-
-    How dollar sign in name created that
+    Addressing an issue with the AzureRM provider caused by using the $ character in resource names
 date: '2024-11-06'
 ---
-<div className="warningBorder">
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="warningIcon"
-    >
-        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-.75 5.75a.75.75 0 011.5 0v6.5a.75.75 0 01-1.5 0v-6.5zm1 9.25a1 1 0 10-2 0 1 1 0 002 0z" />
-    </svg>
-    <span className="font-bold">Under Construction</span>
-</div>
+This document outlines the process of updating Terraform from version 0.12 to the latest version, including an issue
+encountered during the terraform apply step. The issue, related to using the $ character in a resource name, caused
+an unexpected error with the AzureRM provider. The investigation and solution, which involved modifying the resource
+name, are discussed in detail below.
 
-Task was simple "Update terraform to the latest version". Only issue was that particular solution version 0.12v. And if
-you know anything about terraform update, then you need to do it in following order:
+# Story time
+
+The task was simple: "Update Terraform to the latest version." The challenge arose because the current solution was
+using Terraform version `0.12`, and as you may know, updating Terraform requires upgrading through a series of steps:
 
 ```
 0.12v -> 0.13v -> 0.14v -> latest version
 ```
 
-Pritty simple, so in `provider.tf` I did following:
+This process is straightforward, so in `provider.tf`, I updated the version constraint:
 
 ```
 terraform {
@@ -32,9 +27,8 @@ terraform {
 }
 
 ```
-
-And happyily push it on the branch, run release pipeline and see large error in `terraform apply` step:
-
+After pushing the changes to the branch and running the release pipeline, I encountered an error
+during the `terraform apply` step:
 
 ```
 Error: Provider produces incosistent result after apply
@@ -48,7 +42,7 @@ issue tracker.
 
 ```
 
-Quick glance on the resource itself does not raise any alarm:
+A quick glance at the resource didn’t raise any alarms:
 ```
 resource "azurerm_servicebus_subscription_rule" "example" {
   name            = "$Default"
@@ -58,9 +52,12 @@ resource "azurerm_servicebus_subscription_rule" "example" {
 }
 ```
 
-Google does not help either. ChatGPT even less. So, I decided to play with it, and to see what caused this.
-First thing that I changed was the name. From the `$Default` to the `TestNameSubscription` and on my dismay `terraform
-apply` passed. Somehow, *undocumented* `$` sign can cause apply step to fail.
+Searching for a solution didn’t yield any helpful results, not even from ChatGPT. So, I decided to experiment with the
+configuration to see if I could identify the root cause. First thing that I changed was the name. From the `$Default` to
+the `TestNameSubscription` and on my dismay `terraform apply` passed. It appears that the `$` sign in the resource name
+was causing the issue, although this behavior is **undocumented** and not mentioned in Terraform’s official documentation.
+
+# Solution
 
 Before:
 ```

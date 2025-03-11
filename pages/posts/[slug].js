@@ -57,7 +57,7 @@ export default function PostPage({
           )}
         </header>
         <main>
-          <article className="prose dark:prose-dark" data-sb-field-path="markdown_content">
+          <article className="max-w-full prose dark:prose-dark" data-sb-field-path="markdown_content">
             <MDXRemote {...source} components={components} />
           </article>
         </main>

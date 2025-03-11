@@ -72,6 +72,14 @@ export default function Index({ globalData }) {
                         Developed a user permissions report that successfully passed external auditing by an independent
                         agency, ensuring regulatory compliance and enhancing governance processes for a startup bank.
                       </p>
+                      <p className="mt-2 text-sm leading-normal">
+                        Designed and implemented a microservices-based system for foreign currency transaction processing,
+                        optimizing efficiency and achieving significant cost savings (saved 0.75 FTE)
+                      </p>
+                      <p className="mt-2 text-sm leading-normal">
+                        Developed and maintained a microservices architecture on Azure, leveraging event- and message-driven
+                        development with Azure Service Bus (Queues and Topics), App Services, and Azure Functions.
+                      </p>
                         <ul className="mt-2 flex flex-wrap" aria-label="Technologies used">
                           <li className="mr-1.5 mt-2">
                             <div
